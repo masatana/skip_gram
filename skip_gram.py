@@ -21,7 +21,7 @@ class SkipGram(object):
         if self._skip_gram_token_list:
             return self._skip_gram_token_list
         self._skip_gram_token_list = [tuple(self._text_list[i] for i in selector)
-                for selector in ifilter(self._checker, combinations(xrange(len(self._text_list)), self._skip))]
+                for selector in ifilter(self._checker, combinations(xrange(len(self._text_list)), self._n))]
         return self._skip_gram_token_list
 
     def _checker(self, l):
