@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function, unicode_literals
-from itertools import ifilter, combinations
+from itertools import izip, combinations
 
 class SkipGram(object):
     def __init__(self, text, skip = 2, n = 2):
@@ -10,21 +10,13 @@ class SkipGram(object):
         self._n = n
         self._skip = skip
 
-    def _ngrams(self, l, n):
-        for i in xrange(len(l) - n + 1):
-            yield l[i:i+n]
-
     @property
     def skip_grams(self):
-        for selector in ifilter(self._checker, combinations(xrange(len(self._text_list)), self._n)):
+        mask = [i * self._skip for i in range(self._n)]
+        for selector in combinations(xrange(len(self._text_list)), self._n):
+            if any([a_i - b_i - selector[0] > 1 for a_i, b_i in izip(selector, mask)]):
+                continue
             yield tuple(self._text_list[i] for i in selector)
-
-    def _checker(self, l):
-        skip_biased = self._skip + 1
-        for token in self._ngrams(l, 2):
-            if token[1] - token[0] > skip_biased:
-                return False
-        return True
 
     def __repr__(self):
         return """text_list:{0},
