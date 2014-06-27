@@ -14,7 +14,7 @@ class SkipGram(object):
     @property
     def skip_grams(self):
         for selector in combinations(xrange(len(self._text_list)), self._n):
-            if any([a_i - b_i - selector[0] > 1 for a_i, b_i in izip(selector, self._mask)]):
+            if any(a_i - b_i - selector[0] > 1 for a_i, b_i in izip(selector, self._mask)):
                 continue
             yield tuple(self._text_list[i] for i in selector)
 
