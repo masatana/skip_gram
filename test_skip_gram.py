@@ -9,6 +9,7 @@ class TestSkipGram(unittest.TestCase):
     def setUp(self):
         self.two_skip_bi_grams = [token for token in SkipGram("Insurgents killed in ongoing fighting.", skip = 2, n = 2).skip_grams]
         self.two_skip_tri_grams = [token for token in SkipGram("Insurgents killed in ongoing fighting.", skip = 2, n = 3).skip_grams]
+        self.test = [token for token in SkipGram("Insurgents killed in ongoing fighting.", skip = 2, n = 2).old_skip_grams]
 
     def test_skip_grams(self):
         self.assertEqual(self.two_skip_bi_grams, [
@@ -33,6 +34,18 @@ class TestSkipGram(unittest.TestCase):
                 ("killed", "in", "fighting."),
                 ("killed", "ongoing", "fighting."),
                 ("in", "ongoing", "fighting.")])
+
+        self.assertEqual(self.test, [
+                ("Insurgents", "killed"),
+                ("Insurgents", "in"),
+                ("Insurgents", "ongoing"),
+                ("killed", "in"),
+                ("killed", "ongoing"),
+                ("killed", "fighting."),
+                ("in", "ongoing"),
+                ("in", "fighting."),
+                ("ongoing", "fighting.")])
+
 
 if __name__ == "__main__":
     unittest.main()
