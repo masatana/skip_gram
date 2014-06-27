@@ -7,11 +7,11 @@ from skip_gram import SkipGram
 
 class TestSkipGram(unittest.TestCase):
     def setUp(self):
-        self.two_skip_bi_gram = SkipGram("Insurgents killed in ongoing fighting.", 2, 2)
-        self.two_skip_tri_gram = SkipGram("Insurgents killed in ongoing fighting.", 2, 3)
+        self.two_skip_bi_grams = [token for token in SkipGram("Insurgents killed in ongoing fighting.", 2, 2).skip_grams]
+        self.two_skip_tri_grams = [token for token in SkipGram("Insurgents killed in ongoing fighting.", 2, 3).skip_grams]
 
     def test_skip_grams(self):
-        self.assertEqual(self.two_skip_bi_gram.skip_grams, [
+        self.assertEqual(self.two_skip_bi_grams, [
                 ("Insurgents", "killed"),
                 ("Insurgents", "in"),
                 ("Insurgents", "ongoing"),
@@ -22,7 +22,7 @@ class TestSkipGram(unittest.TestCase):
                 ("in", "fighting."),
                 ("ongoing", "fighting.")])
 
-        self.assertEqual(self.two_skip_tri_gram.skip_grams, [
+        self.assertEqual(self.two_skip_tri_grams, [
                 ("Insurgents", "killed", "in"),
                 ("Insurgents", "killed", "ongoing"),
                 ("Insurgents", "killed", "fighting."),
