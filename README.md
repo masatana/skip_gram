@@ -1,3 +1,4 @@
+# CAUTION: this is experimental implements and not yet completed.
 # Skip-Gram
 
 ## About
